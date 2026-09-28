@@ -8,7 +8,7 @@ print(df["Resistance phenotype"].value_counts())
 print("-------------------------------------------------------------")
 print(df["Antibiotic"].value_counts())
 print("-------------------------------------------------------------")
-# تعداد نتایج مقاوم برای هر آنتی‌بیوتیک
+# Number of resistant results for each antibiotic
 result_for_specific_antibiotic = (
     (df["Resistance phenotype"] == "resistant")
     .groupby(df["Antibiotic"])
@@ -17,7 +17,7 @@ result_for_specific_antibiotic = (
     )
 print(result_for_specific_antibiotic)
 print("-------------------------------------------------------------")
-#درصد مقاومت هر آنتي بيوتيک
+# Resistance rate for each antibiotic
 total = df.groupby("Antibiotic").size().reset_index(name = "total")
 result = pd.merge(
     result_for_specific_antibiotic,
@@ -30,10 +30,10 @@ result["Resistance Rate"] = (
     )
 print(result)
 print("-------------------------------------------------------------")
-#کدام آنتي بيوتيک بيشترين نرخ مقاومت را دارد
+# Which antibiotic has the highest resistance rate?
 print(result.loc[result['Resistance Rate'].idxmax()])
 print("-------------------------------------------------------------")
-#تعداد نتايج حساس براي هر انتي بيوتيک
+# Number of susceptible results for each antibiotic
 susceptible_count = (
     (df["Resistance phenotype"] == "susceptible")
     .groupby(df["Antibiotic"])
@@ -42,7 +42,7 @@ susceptible_count = (
     )
 print(susceptible_count)    
 print("-------------------------------------------------------------")
-#درصد حساسيت هر انتي بيوتيک
+# Susceptibility rate for each antibiotic
 total = df.groupby("Antibiotic").size().reset_index(name = "total")
 result1 = pd.merge(
     susceptible_count,
@@ -54,7 +54,7 @@ result1["susceptibility rate"] = (
     )
 print(result1) 
 print("-------------------------------------------------------------")
-#کدام گونه باکتری بالاترین نرخ مقاومت کلی را دارد
+# Which bacterial species has the highest overall resistance rate?
 resistant_count_bacteria = (
     (df["Resistance phenotype"] == "resistant")
     .groupby(df["Scientific name"])
@@ -76,7 +76,7 @@ print(result2)
 print("-------------------------------------------------------------")
 print(result.loc[result['Resistance Rate'].idxmax()])
 print("-------------------------------------------------------------")
-#آیا الگوی مقاومت بین باکتری‌های مختلف متفاوت است
+# Do resistance patterns differ among bacterial species?
 ##bacteria_antibiotic = df.groupby(['Scientific name', 'Antibiotic'])
 resistant_count = (
     (df['Resistance phenotype'] == "resistant")
@@ -98,7 +98,7 @@ result3['Resistance Rate'] = (
 print(result3)
 #print(total_bacteria_antibiotic)
 print("-------------------------------------------------------------")
-#تعداد نتايج متوسط براي هر آنتي بيوتيک
+# Number of intermediate results for each antibiotic
 intermediate_count = (
     (df["Resistance phenotype"] == 'intermediate')
     .groupby(df['Antibiotic'])
@@ -118,7 +118,7 @@ result4['intermediate rate'] = (
     )
 print(result4)
 print("-------------------------------------------------------------")
-#final table
+# Final results table
 final_result = pd.merge(
     result,
     result1,
@@ -161,7 +161,7 @@ print(final_result[
      "Total Rate"]
 ])
 print("-------------------------------------------------------------")
-#نمودار مقاومت آنتی بیوتیکی
+# Antibiotic resistance profile
 
 fig, ax = plt.subplots(figsize=(10, 6))
 x = np.arange(len(final_result['Antibiotic']))
@@ -226,7 +226,7 @@ fig.savefig(
 
 plt.show()
 print("-------------------------------------------------------------")
-#برای بدست اوردن نمونه های تکراری
+# Identify duplicate sample-antibiotic records
 print(df["BioSample"].head(10))
 
 print(df["BioSample"].nunique())
@@ -246,13 +246,13 @@ print(
     )
 )
 
-print(
+print(دارند؟
     duplicates_rows.groupby(
         ["BioSample", "Antibiotic"]
     )["Resistance phenotype"].nunique()
 )
 print("-------------------------------------------------------------")
-#برای بدست اوردن اینکه چند تا از نمونه ها چند تا انتی بیوتیک مختلف دارند
+# Determine how many different antibiotics were tested for each sample
 antibiotic_per_sample = (
     df.groupby('BioSample')['Antibiotic']
     .nunique()
@@ -260,7 +260,7 @@ antibiotic_per_sample = (
 
 print(antibiotic_per_sample.value_counts().sort_index())
 print("-------------------------------------------------------------")
-#آیا بعضی از آنتی‌بیوتیک‌ها الگوی مقاومت مشابهی دارند؟
+# Do some antibiotics have similar resistance patterns? 
 complete_samples = antibiotic_per_sample[
     antibiotic_per_sample == 5
 ].index
@@ -313,7 +313,7 @@ resistant_per_sample = (
 
 print(resistant_per_sample.head(10))
 print("-------------------------------------------------------------")
-#pivot
+# Pivot the data to create a sample-antibiotic resistance matrix
 resistance_matrix = resistant_per_sample.pivot(
     index = 'BioSample',
     columns = 'Antibiotic',
@@ -329,7 +329,7 @@ print("-------------------------------------------------------------")
 correlation_matrix = resistance_matrix.corr()
 print(correlation_matrix)
 print("-------------------------------------------------------------")
-#heatmap for correlation
+# Correlation heatmap
 fig, ax = plt.subplots(figsize=(9, 7))
 
 im = ax.imshow(
@@ -378,7 +378,7 @@ fig.savefig(
 plt.show()
 
 print("-------------------------------------------------------------")
-#آیا یک نمونه‌ی باکتریایی به چند آنتی‌بیوتیک مختلف همزمان مقاومه؟
+# Is a bacterial sample resistant to multiple antibiotics simultaneously?
 resistance_count_per_sample = (
     resistance_matrix.sum(axis=1)
 )
@@ -392,7 +392,7 @@ resistance_distribution = (
 )
 print(resistance_distribution)
 print("-------------------------------------------------------------")
-#نمودار
+# Resistance distribution plot
 fig, ax = plt.subplots(figsize= (8, 5))
 
 x = (resistance_distribution.index)
@@ -428,7 +428,7 @@ fig.savefig(
 
 plt.show()
 print("-------------------------------------------------------------")
-# ایا میتوانیم برای هر نموه یک پروفایل مقاومتی بسازیم؟
+# Can we create a resistance profile for each sample?
 
 resistance_matrix["Resistance Profile"] = resistance_matrix.apply(
     lambda row: "No resistance" if ", ".join(row[row == 1].index) == "" 
