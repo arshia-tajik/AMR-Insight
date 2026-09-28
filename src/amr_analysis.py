@@ -214,12 +214,12 @@ ax.bar_label(bars3, fmt="%.1f%%")
 fig.tight_layout()
 
 os.makedirs(
-    r"C:\Users\DR.ARSHIA\Desktop\py project\figures",
+    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures",
     exist_ok=True
 )
 
 fig.savefig(
-    r"C:\Users\DR.ARSHIA\Desktop\py project\figures\antibiotic_resistance_profile.png",
+    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures\antibiotic_resistance_profile.png",
     dpi=300,
     bbox_inches="tight"
 )
@@ -365,12 +365,12 @@ for i in range(len(correlation_matrix)):
 fig.tight_layout()
 
 os.makedirs(
-    r"C:\Users\DR.ARSHIA\Desktop\py project\figures",
+    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures",
     exist_ok = True
 )
 
 fig.savefig(
-     r"C:\Users\DR.ARSHIA\Desktop\py project\figures\antibiotic_resistance_correlation_heatmap.png",
+     r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures\antibiotic_resistance_correlation_heatmap.png",
      dpi = 300,
      bbox_inches = 'tight'
 )
@@ -416,12 +416,12 @@ ax.grid(
 )
 
 os.makedirs(
-    r"C:\Users\DR.ARSHIA\Desktop\py project\figures",
+    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures",
     exist_ok=True
 )
 
 fig.savefig(
-    r"C:\Users\DR.ARSHIA\Desktop\py project\figures\resistance_distribution.png",
+    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures\resistance_distribution.png",
     dpi = 300,
     bbox_inches = 'tight'
 )
