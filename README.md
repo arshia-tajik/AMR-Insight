@@ -86,4 +86,12 @@ The long-term goal of AMR-Insight is to combine microbiology, bioinformatics, da
 
 **Arshia Tajik**
 
+## Connect
+
+* **GitHub:** [Arshia Tajik](https://github.com/arshia-tajik)
+* **LinkedIn:** [Arshia Tajik](https://www.linkedin.com/in/arshia-tajik/)
+* **ORCID:** [Arshia Tajik](https://orcid.org/0009-0005-2859-8432)
+
+
+
 Microbiology | Python | Data Analysis | Bioinformatics
