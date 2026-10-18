@@ -2,8 +2,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+from pathlib import Path
 
-df = pd.read_csv(r"C:\Users\DR.ARSHIA\Desktop\AMR Insight\asts.csv")
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+DATA_PATH = PROJECT_ROOT / "asts.csv"
+
+FIGURES_DIR = PROJECT_ROOT / "figures"
+
+FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+
+df = pd.read_csv(DATA_PATH)
 print(df["Resistance phenotype"].value_counts())
 print("-------------------------------------------------------------")
 print(df["Antibiotic"].value_counts())
@@ -213,13 +223,9 @@ ax.bar_label(bars3, fmt="%.1f%%")
 
 fig.tight_layout()
 
-os.makedirs(
-    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures",
-    exist_ok=True
-)
 
 fig.savefig(
-    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures\antibiotic_resistance_profile.png",
+    FIGURES_DIR / "antibiotic_resistance_profile.png",
     dpi=300,
     bbox_inches="tight"
 )
@@ -246,7 +252,7 @@ print(
     )
 )
 
-print(دارند؟
+print(
     duplicates_rows.groupby(
         ["BioSample", "Antibiotic"]
     )["Resistance phenotype"].nunique()
@@ -364,13 +370,10 @@ for i in range(len(correlation_matrix)):
 
 fig.tight_layout()
 
-os.makedirs(
-    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures",
-    exist_ok = True
-)
+
 
 fig.savefig(
-     r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures\antibiotic_resistance_correlation_heatmap.png",
+     FIGURES_DIR / "antibiotic_resistance_correlation_heatmap.png",
      dpi = 300,
      bbox_inches = 'tight'
 )
@@ -415,13 +418,10 @@ ax.grid(
     alpha = 0.3
 )
 
-os.makedirs(
-    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures",
-    exist_ok=True
-)
+
 
 fig.savefig(
-    r"C:\Users\DR.ARSHIA\Desktop\AMR-Insight\figures\resistance_distribution.png",
+   FIGURES_DIR / "resistance_distribution.png",
     dpi = 300,
     bbox_inches = 'tight'
 )
